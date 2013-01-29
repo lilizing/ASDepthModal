@@ -42,10 +42,11 @@ static NSTimeInterval const kModalViewAnimationDuration = 0.3;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
+    NSLog(@"%@ %@",[self class],[NSString stringWithUTF8String:__PRETTY_FUNCTION__]);
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
     {
-        self.view.backgroundColor = [UIColor blackColor];
+        //self.view.backgroundColor = [UIColor blackColor];
         self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;                
         self.view.backgroundColor = [UIColor blackColor];
     }
@@ -75,15 +76,18 @@ static NSTimeInterval const kModalViewAnimationDuration = 0.3;
                      }];
 }
 
+//给popuviewa的呈现产生一个动画效果，渐大或渐小出现
 - (void)animatePopupWithStyle:(ASDepthModalAnimationStyle)style
 {
     switch (style) {
         case ASDepthModalAnimationGrow:
         {
+            //从一个缩小的大小
             self.popupView.transform = CGAffineTransformMakeScale(0.8, 0.8);
             self.initialPopupTransform = self.popupView.transform;
             [UIView animateWithDuration:kModalViewAnimationDuration
                              animations:^{
+                                 //渐变到原始大小
                                  self.popupView.transform = CGAffineTransformIdentity;
                              }];
         }
@@ -147,7 +151,9 @@ static NSTimeInterval const kModalViewAnimationDuration = 0.3;
     self.coverView.alpha = 0;
     [UIView animateWithDuration:kModalViewAnimationDuration
                      animations:^{
+                         //缩放
                          self.rootViewController.view.transform = CGAffineTransformMakeScale(0.9, 0.9);
+                         //透明度渐变
                          self.coverView.alpha = 1;
                      }];
     [self animatePopupWithStyle:popupAnimationStyle];

@@ -80,7 +80,7 @@
     {
         style = ASDepthModalAnimationNone;
     }
-    
+    //弹出视图
     [ASDepthModalViewController presentView:self.popupView withBackgroundColor:color popupAnimationStyle:style];
 }
 
